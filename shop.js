@@ -17,13 +17,14 @@ var largeQuantity = document.querySelector(".largeQuantity");
 var smallPizzaTotal = document.querySelector(".smallPizzaTotal");
 var medPizzaTotal = document.querySelector(".medPizzaTotal");
 var largePizzaTotal = document.querySelector(".largePizzaTotal");
-var totalCost = document.querySelector(".totalCost");
+var cartTotal = document.querySelector(".cartTotal");
 
 var checkOut = document.querySelector(".checkOut");
-var payAmount = document.querySelector(".payAmount");
-var paymentBtn = document.querySelector(".paymentBtn");
+
 var payOut = document.querySelector(".payOut");
 var message = document.querySelector(".message");
+var payAmt = document.querySelector(".payAmt");
+var payBtn = document.querySelector(".payBtn");
 
 
 var smallPizzaQty = 0;
@@ -36,8 +37,7 @@ var medium = 60;
 var large = 90;
 
 function eventClick() {
-    if (event.target.className == "smallAdd" ||
-     event.target.className == "smallBtn") {
+    if (event.target.className == "smallAdd" || event.target.className == "smallBtn") {
         smallPizzaQty++;
         smallQuantity.innerText = smallPizzaQty;
     } else if (event.target.className == "mediumAdd" || event.target.className == "mediumBtn") {
@@ -71,7 +71,7 @@ function eventClick() {
     medPizzaTotal.innerHTML = (medPizzaQty * medium).toFixed(2);
     largePizzaTotal.innerHTML = (largePizzaQty * large).toFixed(2);
     totalCosts = smallPizzaQty * small + medPizzaQty * medium + largePizzaQty * large;
-    totalCost.innerHTML = totalCosts.toFixed(2);
+    cartTotal.innerHTML = totalCosts.toFixed(2);
 }
 
 function checkOutClick(){
@@ -81,21 +81,20 @@ function checkOutClick(){
 
 function purchaseClicked(){
     message.classList.toggle('hidden');
-    var amount = Number(payAmount.value);
- if (amount == totalCosts){
+    var paymentAmt = Number(payAmt.value);
+ if (paymentAmt == totalCosts){
    message.innerHTML = "Enjoy your Pizza!";
-    var cartItems = document.getElementsByClassName("payOut hidden")[0]
-    while (cartItems.hasChildNodes()) {
-        cartItems.removeChild(cartItems.firstChild)
+    var cartItem = document.getElementsByClassName("payOut hidden")[0]
+    while (cartItem.hasChildNodes()) {
+        cartItem.removeChild(cartItem.firstChild)
     }
- } else if (amount > totalCosts) {
-    var change = amount - totalCosts;
+ } else if (paymentAmt > totalCosts) {
+    var change = paymentAmt - totalCosts;
    message.innerHTML = "Enjoy your Pizza, here is your change R" + change.toFixed(2);
    
  } else {
     message.innerHTML = "Sorry, that is not enough money!";
  }
-
 }
 smallAddBtn.addEventListener('click', eventClick);
 smallRemoveBtn.addEventListener('click', eventClick);
@@ -107,7 +106,7 @@ largeAddBtn.addEventListener('click', eventClick);
 largeRemoveBtn.addEventListener('click', eventClick);
 largeBtn.addEventListener('click',eventClick);
 checkOut.addEventListener('click', checkOutClick)
-paymentBtn.addEventListener('click',purchaseClicked)
+payBtn.addEventListener('click',purchaseClicked)
 
 
 
